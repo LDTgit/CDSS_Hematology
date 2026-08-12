@@ -1,0 +1,16 @@
+Diagnostic,Cod Numeric
+Anemia of Chronic Disease,0
+Bacterial Infections,1
+Beta-Thalassemia Minor,2
+Chronic Leukemias,3
+Infectious Mononucleosis,4
+Iron Deficiency,5
+Leukocytosis,6
+Leukopenia,7
+Microcytic Anemia,8
+Normal,9
+Normocytic Anemia,10
+Polycythemia Vera,11
+Thrombocytopenia,12
+Thrombocytosis,13
+Viral Infections,14

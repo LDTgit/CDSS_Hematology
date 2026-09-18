@@ -1,7 +1,116 @@
-# Arbori de decizie folosiți în medicină pentru stabilirea unui diagnostic
+# Summary - Decision trees used in medicine for establishing a diagnosis
+This project addresses the problem of the differential diagnosis of hematological pathologies using machine learning techniques.
 
-Lucrarea abordează problema diagnosticării diferențiale a patologiilor hematologice prin utilizarea tehnicilor de învățarea automată. 
-Scopul principal este de a eficientiza procesul de diagnosticare și de a crește siguranța pacientului, prin minimizarea rezultatelor fals-negative în cazul bolilor slab reprezentate în bazele de date. 
-Metodologia propusă implică antrenarea mai multor modele de clasificare, printre care Decision Trees, Random Forest, Support Vector Machines și Logistic Regression, folosind tehnici de ponderare a claselor și evaluarea comparativă a performanțelor în special prin metrica de sensibilitate (Recall). 
-Rezultatele obținute evidențiază performanță generală superioară a modelului Random Forest, cu o acuratețe de 97,8%, însă, pentru leucemii, cea mai bună sensibilitate (Recall) este obținută de modelul Decision Tree cu o rată de identificare de 100%. Pentru modelele Support Vector Machines și Logistic Regression s-au obținut performanțe inferioare algoritmilor bazați pe arbori, cu o acuratețe de aproximativ 86% și un Recall pentru leucemii de 95%. 
-Contribuția lucrării constă în optimizarea modelelor pentru bolile slab reprezentate în bazele de date și asigurarea transparenței necesare validării clinice.
+The main goal is to streamline the diagnostic process and increase patient safety by minimizing false-negative results in the case of diseases that are poorly represented in databases.
+
+The proposed methodology involves training several classification models, including Decision Trees, Random Forest, Support Vector Machines, and Logistic Regression, using class weighting techniques and comparative performance evaluation, particularly through the sensitivity (Recall) metric.
+
+The obtained results highlight the superior overall performance of the Random Forest model, with an accuracy of 97.8%, but for leukemias, the best sensitivity (Recall) is achieved by the Decision Tree model with a 100% identification rate. For the Support Vector Machines and Logistic Regression models, performances inferior to tree-based algorithms were obtained, with an accuracy of approximately 86% and a Recall for leukemias of 95%.
+
+The main contribution of this study consists in optimizing the models for diseases poorly represented in databases and ensuring the transparency necessary for clinical validation.
+
+# Project Documentation: Hematological Diagnosis using Decision Trees
+
+This notebook, titled "Arbori de decizie utilizați pentru diagnostic hematologic" (Decision trees used for hematological diagnosis), serves as a comprehensive study in applying machine learning, specifically Decision Trees, for the diagnosis of various hematological diseases based on clinical patient data.
+
+## High-Level Project Summary
+
+The project aims to develop, optimize, and evaluate a machine learning model capable of assisting in hematological diagnosis. It systematically covers the entire machine learning pipeline, from data preparation to model comparison and explainability.
+
+### Key Stages:
+
+1.  **Data Preparation (Section 1):**
+    *   **Library Imports:** Essential libraries like `pandas`, `numpy`, `matplotlib`, `seaborn`, and `sklearn` are imported.
+    *   **Dataset Loading:** A clinical dataset (`BDCBC7196_Hematology_Dataset.csv`) containing patient clinical data and hematological disease diagnoses is loaded into a Pandas DataFrame. The first 5 rows are displayed for initial inspection.
+
+2.  **Exploratory Data Analysis (EDA) (Section 2):**
+    *   **Dataset Structure:** Examination of the number of rows and columns (`df.shape`) and data types (`df.info()`), confirming no missing values.
+    *   **Descriptive Statistics:** Statistical summary (`df.describe()`) provides insights into the distribution, mean, standard deviation, and range of hematological parameters.
+    *   **Diagnosis Distribution:** Analysis and visualization (`value_counts()`, `sns.countplot`) of the frequency of each diagnosis in the dataset.
+    *   **Hematological Parameter Analysis:** Histograms (`sns.histplot`) are used to visualize the distribution of individual hematological parameters.
+    *   **Outlier Detection:** Box plots (`sns.boxplot`) are employed to identify extreme values (outliers) in the numerical features.
+    *   **Correlation Analysis:** A heatmap (`sns.heatmap`) of the correlation matrix helps identify relationships between different hematological parameters.
+
+3.  **Data Preprocessing (Section 3):**
+    *   **Missing Values:** Re-verification that the dataset contains no missing values.
+    *   **Feature and Target Separation:** The dataset is split into independent features (`X`) and the target variable (`y`, which is the `Diagnosis`).
+    *   **Target Encoding:** The categorical `Diagnosis` variable is converted into numerical format using `LabelEncoder` for compatibility with machine learning algorithms. The mapping between text diagnoses and numerical codes is displayed.
+
+4.  **Dataset Splitting (Section 4):**
+    *   The data is divided into training (80%) and testing (20%) sets using `train_test_split`. Stratified sampling (`stratify=y_encoded`) is crucial to ensure a balanced distribution of diagnostic classes in both sets, especially for rare diseases.
+
+5.  **Decision Tree Model Implementation (Section 5):**
+    *   **Model Creation and Training:** A `DecisionTreeClassifier` is initialized and trained on the preprocessed training data.
+    *   **Model Analysis:** Examination of tree characteristics such as the total number of nodes, maximum depth, feature importance (both count in splits and Gini importance), and split thresholds. A visualization of the top 2 levels of the tree is provided.
+    *   **Rule Extraction:** IF-THEN classification rules generated by the decision tree are extracted and displayed.
+    *   **Regularization Strategies:** Discusses and implements pre-pruning (limiting `max_depth` and `min_samples_leaf`) and Cost Complexity Pruning (`ccp_alpha`) to combat overfitting. The optimal `alpha` value is determined by evaluating training and test accuracy.
+
+6.  **Prediction (Section 6):**
+    *   The optimized Decision Tree model is used to make predictions on the test set (`y_pred_dt_best`).
+
+7.  **Decision Tree Visualization (Section 7):**
+    *   Visualizations of the initial Decision Tree, the manually pruned tree, and the automatically optimized (best) Decision Tree are provided, highlighting the impact of pruning.
+
+8.  **Model Performance Evaluation (Section 8):**
+    *   **Confusion Matrix:** A heatmap of the confusion matrix is generated to visualize True Positives, True Negatives, False Positives, and False Negatives for each diagnostic class.
+    *   **Accuracy:** Calculation and interpretation of the overall model accuracy.
+    *   **Detailed Metrics:** Precision, Recall (Sensitivity), Specificity, and F1-score are calculated per class using `classification_report`, with a detailed discussion on the importance of Recall for critical diagnoses like Chronic Leukemias.
+    *   **ROC Curve and AUC:** ROC curves are plotted for the selected rare diagnostic classes, including 'Normal', to assess the model's ability to distinguish between classes. Macro-average AUC is calculated.
+
+9.  **Model Optimization (Section 9):**
+    *   **Hyperparameter Tuning:** `GridSearchCV` with cross-validation is used to optimize the Decision Tree model further. Crucially, `class_weight` is adjusted to assign higher importance to the 'Chronic Leukemias' class (weight of 5) to improve its Recall, addressing the issue identified in the previous evaluation.
+    *   **Cross-Validation:** The stability of the optimized model is evaluated using k-fold cross-validation (`cv=5`).
+
+10. **Optimized Model Evaluation (Section 10):**
+    *   **Optimized Tree Visualization:** The first few levels of the retrained (optimized) Decision Tree are visualized.
+    *   **Confusion Matrix (Optimized):** A new confusion matrix is generated for the optimized model, showing the impact of class weighting.
+    *   **Accuracy (Optimized):** The accuracy of the retrained model is calculated.
+    *   **Classification Report (Optimized):** A detailed classification report demonstrates the improved Recall for 'Chronic Leukemias' after optimization, along with other metrics.
+
+11. **Medical Feature Importance Analysis (Section 11):**
+    *   Feature importance scores for the optimized Decision Tree are calculated and visualized, identifying the most influential hematological parameters in the diagnostic process.
+
+12. **Transparency (Explainable AI) (Section 12):**
+    *   **Decision Path Visualization:** A detailed decision path for a specific patient (from the 'Chronic Leukemias' class) is shown, explaining how the model arrived at its diagnosis.
+    *   **IF-THEN Rules:** All extracted IF-THEN rules from the optimized model are translated into a clinically interpretable format using a `medical_dict` and presented in a DataFrame, which is also exported to `Reguli_Diagnostic.csv`. Specific rules for 'Chronic Leukemias' are highlighted.
+
+13. **Comparison with Other Models (Section 13):**
+    *   **Random Forest:** An `RandomForestClassifier` is implemented, trained, and evaluated (Confusion Matrix, Accuracy, Classification Report, Feature Importance, Grid Search for optimization, Cross-Validation).
+    *   **Logistic Regression & SVM:** `LogisticRegression` and `SVC` models are implemented within `Pipeline`s (including `StandardScaler`) and trained.
+    *   **Comparative Performance:** A comparative table summarizes key metrics (Overall Accuracy, Macro Average Recall, Macro Average F1-score, Recall for Chronic Leukemias) for all models (Decision Tree, Random Forest, Logistic Regression, SVM).
+    *   **Comparative ROC Curve:** A combined ROC curve visually compares the performance of all models.
+    *   **Comparative Confusion Matrices:** A grid of confusion matrices allows for visual comparison of classification performance across all models.
+
+14. **Prediction for New Data (Section 14):**
+    *   Demonstrates how to use the optimized Decision Tree model to predict the diagnosis for a new, hypothetical patient based on their hematological parameters, along with the probabilities for each potential diagnosis.
+
+## User Guide for Running the Notebook
+
+To effectively run and interact with this Google Colab notebook, please follow these steps:
+
+1.  **Open in Google Colab:** Ensure you have access to Google Colab. If you're viewing this as a `.ipynb` file, upload it to your Google Drive and open it with Google Colab.
+
+2.  **Dataset Availability:** This notebook relies on a CSV file named `BDCBC7196_Hematology_Dataset.csv`. You must ensure this file is accessible in your Colab environment. The easiest way is to:
+    *   Upload the `BDCBC7196_Hematology_Dataset.csv` file directly to your Colab session. You can do this by clicking the folder icon on the left sidebar -> `Files` -> `Upload to session storage` icon. **Note:** Files uploaded this way are deleted when the runtime is recycled.
+    *   Alternatively, mount your Google Drive (if the dataset is there) or provide a direct path if it's hosted elsewhere.
+
+3.  **Execute Cells Sequentially:** Jupyter notebooks are designed to be run cell by cell, in order from top to bottom. Click on the first code cell (or the `Run all` button under the `Runtime` menu, though it's recommended to go step-by-step for the first run).
+    *   To run a single cell, click on the cell and then click the "Play" icon that appears to the left of the cell, or press `Shift + Enter`.
+    *   Read the Markdown (text) cells as you go; they provide explanations and context for the code that follows.
+
+4.  **Observe Outputs:** Pay attention to the outputs generated by each code cell. These include:
+    *   **Pandas DataFrames:** Displaying `.head()` or `.describe()` provides tabular data summaries.
+    *   **Printed Text:** `print()` statements show information like feature counts, best parameters from Grid Search, and classification reports.
+    *   **Plots and Visualizations:** Matplotlib and Seaborn are used extensively to generate various plots (histograms, box plots, heatmaps, decision tree visualizations, ROC curves, confusion matrices). These are crucial for understanding the data and model performance.
+
+5.  **Interpreting Outputs:**
+    *   **EDA Visualizations:** Understand the distributions, potential outliers, and correlations of the features.
+    *   **Decision Tree Rules:** The extracted IF-THEN rules (Section 5.4, 12.2) and decision paths (Section 12.1) demonstrate the model's logic. The `Interpretarea clinică` column in the `df_rules` DataFrame (Section 12.2) is particularly useful for clinical interpretation.
+    *   **Evaluation Metrics:** Focus on the `classification_report` (Sections 8.3, 10.4, 13.1.5, 13.1.11) to understand precision, recall, and F1-score for each diagnostic class. The ROC curve (Sections 8.3, 13.3) provides insight into overall classifier performance.
+    *   **Feature Importance:** The bar plots in Sections 5.4, 11, and 13.1.6 show which clinical parameters are most influential in the model's decisions.
+
+6.  **Modifying Parameters for Experimentation:**
+    *   **Decision Tree Pruning (Section 5.5.1):** Experiment with `max_depth` and `min_samples_leaf` in `model_dt_pruned` to see how it affects tree complexity and performance.
+    *   **Class Weights (Section 9):** The `weights` dictionary in the optimization section is critical. You can adjust the weight for `Chronic Leukemias` (or other classes) to prioritize identifying specific diagnoses. Be cautious, as increasing one recall might decrease others.
+    *   **Grid Search Parameters (Section 9 and 13.1.7):** Modify `param_grid` to explore different ranges or combinations of hyperparameters for `ccp_alpha`, `max_depth`, `min_samples_split`, and `n_estimators` (for Random Forest). This can help find an even better performing model, though it might take longer to run.
+    *   **New Patient Prediction (Section 14):** Change the values in `analize_pacient_nou` to test the model with different patient data.

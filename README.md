@@ -28,7 +28,9 @@ The project aims to develop, optimize, and evaluate a machine learning model cap
     *   **Hematological Parameter Analysis:** Histograms (`sns.histplot`) are used to visualize the distribution of individual hematological parameters.
     *   **Outlier Detection:** Box plots (`sns.boxplot`) are employed to identify extreme values (outliers) in the numerical features.
     *   **Correlation Analysis:** A heatmap (`sns.heatmap`) of the correlation matrix helps identify relationships between different hematological parameters.
-<img width="300" alt="image" src="https://github.com/LDTgit/CDSS_Hematology/blob/main/corelation_matrix.png" />
+    
+      <img width="300" alt="image" src="https://github.com/LDTgit/CDSS_Hematology/blob/main/corelation_matrix.png" />
+
 3.  **Data Preprocessing (Section 3):**
     *   **Missing Values:** Re-verification that the dataset contains no missing values.
     *   **Feature and Target Separation:** The dataset is split into independent features (`X`) and the target variable (`y`, which is the `Diagnosis`).
@@ -48,15 +50,18 @@ The project aims to develop, optimize, and evaluate a machine learning model cap
 
 7.  **Decision Tree Visualization (Section 7):**
     *   Visualizations of the initial Decision Tree, the manually pruned tree, and the automatically optimized (best) Decision Tree are provided, highlighting the impact of pruning.
-<img width="800" alt="image" src="https://github.com/LDTgit/CDSS_Hematology/blob/main/decision_tree.png" />
+    
+      <img width="800" alt="image" src="https://github.com/LDTgit/CDSS_Hematology/blob/main/decision_tree.png" />
 
 8.  **Model Performance Evaluation (Section 8):**
     *   **Confusion Matrix:** A heatmap of the confusion matrix is generated to visualize True Positives, True Negatives, False Positives, and False Negatives for each diagnostic class.
-<img width="400" alt="image" src="https://github.com/LDTgit/CDSS_Hematology/blob/main/confusion_matrix.png" />
+    
+      <img width="400" alt="image" src="https://github.com/LDTgit/CDSS_Hematology/blob/main/confusion_matrix.png" />
 
     *   **Accuracy:** Calculation and interpretation of the overall model accuracy.
     *   **Detailed Metrics:** Precision, Recall (Sensitivity), Specificity, and F1-score are calculated per class using `classification_report`, with a detailed discussion on the importance of Recall for critical diagnoses like Chronic Leukemias.
-<img width="300" alt="image" src="https://github.com/LDTgit/CDSS_Hematology/blob/main/classification_report.png" />
+    
+      <img width="300" alt="image" src="https://github.com/LDTgit/CDSS_Hematology/blob/main/classification_report.png" />
 
     *   **ROC Curve and AUC:** ROC curves are plotted for the selected rare diagnostic classes, including 'Normal', to assess the model's ability to distinguish between classes. Macro-average AUC is calculated.
 
@@ -67,39 +72,49 @@ The project aims to develop, optimize, and evaluate a machine learning model cap
 10. **Optimized Model Evaluation (Section 10):**
     *   **Optimized Tree Visualization:** The first few levels of the retrained (optimized) Decision Tree are visualized.
     *   **Confusion Matrix (Optimized):** A new confusion matrix is generated for the optimized model, showing the impact of class weighting.
-<img width="400" alt="image" src="https://github.com/LDTgit/CDSS_Hematology/blob/main/confusion_matrix_optimized.png" />
+    
+      <img width="400" alt="image" src="https://github.com/LDTgit/CDSS_Hematology/blob/main/confusion_matrix_optimized.png" />
 
     *   **Accuracy (Optimized):** The accuracy of the retrained model is calculated.
     *   **Classification Report (Optimized):** A detailed classification report demonstrates the improved Recall for 'Chronic Leukemias' after optimization, along with other metrics.
-<img width="300" alt="image" src="https://github.com/LDTgit/CDSS_Hematology/blob/main/classification_report_optimized.png" />
+    
+      <img width="300" alt="image" src="https://github.com/LDTgit/CDSS_Hematology/blob/main/classification_report_optimized.png" />
 
 11. **Medical Feature Importance Analysis (Section 11):**
     *   Feature importance scores for the optimized Decision Tree are calculated and visualized, identifying the most influential hematological parameters in the diagnostic process.
 
 12. **Transparency (Explainable AI) (Section 12):**
     *   **Decision Path Visualization:** A detailed decision path for a specific patient (from the 'Chronic Leukemias' class) is shown, explaining how the model arrived at its diagnosis.
-<img width="300" alt="image" src="https://github.com/LDTgit/CDSS_Hematology/blob/main/decision_path.png" />
+    
+      <img width="300" alt="image" src="https://github.com/LDTgit/CDSS_Hematology/blob/main/decision_path.png" />
+
     *   **IF-THEN Rules:** All extracted IF-THEN rules from the optimized model are translated into a clinically interpretable format using a `medical_dict` and presented in a DataFrame, which is also exported to `Reguli_Diagnostic.csv`. Specific rules for 'Chronic Leukemias' are highlighted.
-<img width="300" alt="image" src="https://github.com/LDTgit/CDSS_Hematology/blob/main/if_then_rules.png" />
+    
+      <img width="300" alt="image" src="https://github.com/LDTgit/CDSS_Hematology/blob/main/if_then_rules.png" />
 
 13. **Comparison with Other Models (Section 13):**
     *   **Random Forest:** An `RandomForestClassifier` is implemented, trained, and evaluated (Confusion Matrix, Accuracy, Classification Report, Feature Importance, Grid Search for optimization, Cross-Validation).
-<img width="400" alt="image" src="https://github.com/LDTgit/CDSS_Hematology/blob/main/confusion_matrix_RF.png" />
-<img width="300" alt="image" src="https://github.com/LDTgit/CDSS_Hematology/blob/main/classification_report_RF_optimized.png" />
+    
+    <img width="400" alt="image" src="https://github.com/LDTgit/CDSS_Hematology/blob/main/confusion_matrix_RF.png" />
+    <img width="300" alt="image" src="https://github.com/LDTgit/CDSS_Hematology/blob/main/classification_report_RF_optimized.png" />
 
     *   **Logistic Regression & SVM:** `LogisticRegression` and `SVC` models are implemented within `Pipeline`s (including `StandardScaler`) and trained.
     *   **Comparative Performance:** A comparative table summarizes key metrics (Overall Accuracy, Macro Average Recall, Macro Average F1-score, Recall for Chronic Leukemias) for all models (Decision Tree, Random Forest, Logistic Regression, SVM).
-<img width="400" alt="image" src="https://github.com/LDTgit/CDSS_Hematology/blob/main/model_compare.png" />
+    
+      <img width="400" alt="image" src="https://github.com/LDTgit/CDSS_Hematology/blob/main/model_compare.png" />
 
     *   **Comparative ROC Curve:** A combined ROC curve visually compares the performance of all models.
-<img width="500" alt="image" src="https://github.com/LDTgit/CDSS_Hematology/blob/main/ROC_compare.png" />
+    
+    <img width="500" alt="image" src="https://github.com/LDTgit/CDSS_Hematology/blob/main/ROC_compare.png" />
 
     *   **Comparative Confusion Matrices:** A grid of confusion matrices allows for visual comparison of classification performance across all models.
-<img width="800" alt="image" src="https://github.com/LDTgit/CDSS_Hematology/blob/main/confusion_matrix_compare.png" />
+    
+      <img width="800" alt="image" src="https://github.com/LDTgit/CDSS_Hematology/blob/main/confusion_matrix_compare.png" />
 
 14. **Prediction for New Data (Section 14):**
     *   Demonstrates how to use the optimized Decision Tree model to predict the diagnosis for a new, hypothetical patient based on their hematological parameters, along with the probabilities for each potential diagnosis.
-<img width="300" alt="image" src="https://github.com/LDTgit/CDSS_Hematology/blob/main/predict_proba.png" />
+    
+      <img width="300" alt="image" src="https://github.com/LDTgit/CDSS_Hematology/blob/main/predict_proba.png" />
 
 ## User Guide for Running the Notebook
 
